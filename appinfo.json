@@ -1,10 +1,10 @@
 {
   "uuid": "47531792-a579-46f2-9337-8cbb2ca69103",
-  "shortName": "hello_world",
-  "longName": "hello_world",
-  "companyName": "MakeAwesomeHappen",
+  "shortName": "pebble-2fac",
+  "longName": "Google two-factor auth for Pebble",
+  "companyName": "s3kritsoft",
   "versionCode": 1,
-  "versionLabel": "1.0.0",
+  "versionLabel": "0.1",
   "watchapp": {
     "watchface": false
   },
