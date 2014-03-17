@@ -2,45 +2,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "hmac.h"
-#include "base64.h"
+#include "base32.h"
+#include "gen_code.h"
 
 static Window *window;
 static TextLayer *text_layer;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-  text_layer_set_text(text_layer, "Select");
-}
-
-static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-  text_layer_set_text(text_layer, "Up");
-}
-
-static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-  char* key = "test";
-  char* in = "test2";
-  char* out = (char*)malloc(sizeof(char)*100);
-  char* out64 = (char*)malloc(sizeof(char)*100);
-  if (out == NULL || out64 == NULL){
-  	text_layer_set_text(text_layer, "OOM");
-  } else {
-  	hmac_sha1(key,4,in,5,out);
-	b64_encode(out,out64);
-  	text_layer_set_text(text_layer, out64);
-  }
+    const char* code = "JBSWY3DPEHPK3PXP";
+    const uint8_t* base32 = (uint8_t*)code;
+    char* out = (char*)malloc(sizeof(char)*7);
+    get_code(base32,16,(int)time(NULL),out);
+ 	text_layer_set_text(text_layer, out);
+    free(out);
 }
 
 static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
-  window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
-  window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
 
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
-
-  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });
-  text_layer_set_text(text_layer, "Press a button");
+  text_layer = text_layer_create((GRect) { .origin = { 0, 40 }, .size = { bounds.size.w, 100 } });
+  text_layer_set_font(text_layer,fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
+  text_layer_set_text(text_layer, "------");
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 }
