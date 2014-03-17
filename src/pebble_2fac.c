@@ -1,3 +1,21 @@
+/*
+pebble-2fac - A program to calculate and display Google 2-factor
+authentication codes on the Pebble smartwatch
+Copyright (C) 2014 Martin Pugh
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include <pebble.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +27,8 @@ static Window *window;
 static TextLayer *text_layer;
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-    const char* code = "JBSWY3DPEHPK3PXP";
+    //const char* code = "JBSWY3DPEHPK3PXP";
+    const char* code = "uq3q5qw5rmzcqt77f5i4pfzxnpgs7hfh";
     const uint8_t* base32 = (uint8_t*)code;
     char* out = (char*)malloc(sizeof(char)*7);
     get_code(base32,16,(int)time(NULL),out);

@@ -1,3 +1,22 @@
+/*              
+pebble-2fac - A program to calculate and display Google 2-factor
+authentication codes on the Pebble smartwatch
+Copyright (C) 2014 Martin Pugh
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -7,25 +26,6 @@
 #include "base32.h"
 #include "gen_code.h"
 #include "hmac.h"
-/*
-int main(){
-    const uint8_t* base32 = "JBSWY3DPEHPK3PXP";
-    uint8_t key[100];
-    unsigned int i;
-    int size;
-    char code[50];
-    for(i = 0; i < 100; i++){
-        key[i] = 1;
-    }
-    size = base32_decode(base32,key,15);
-    for (i = 0; i<size; i++){
-        printf("%x",key[i]);
-    }
-    printf("\n");
-    get_code(base32,15,i,code);
-   printf("%s\n",code); 
-}
-*/
 char* get_code(const uint8_t* code, int key_len,unsigned int cur_time,char* out){
     // turn key in to something useful
     uint8_t* code_raw = (uint8_t*)malloc(sizeof(uint8_t)*64);
