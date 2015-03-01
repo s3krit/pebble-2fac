@@ -1,17 +1,33 @@
 {
-  "uuid": "47531792-a579-46f2-9337-8cbb2ca69103",
-  "shortName": "pebble-2fac",
-  "longName": "Google two-factor auth for Pebble",
-  "companyName": "s3kritsoft",
-  "versionCode": 1,
-  "versionLabel": "0.1",
-  "watchapp": {
-    "watchface": false
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "resources": {
-    "media": []
-  }
+    "appKeys": {
+        "Secret": 0,
+        "Timezone_offset": 1
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "s3kritsoft",
+    "longName": "Google two-factor auth for Pebble",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/2-fac-logo.png",
+                "name": "ICON",
+                "type": "png-trans"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "pebble-2fac",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "47531792-a579-46f2-9337-8cbb2ca69103",
+    "versionCode": 1,
+    "versionLabel": "0.3",
+    "watchapp": {
+        "watchface": false
+    }
 }
