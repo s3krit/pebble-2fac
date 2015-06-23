@@ -1,7 +1,6 @@
 {
     "appKeys": {
-        "Secret": 0,
-        "Timezone_offset": 1
+        "Secret": 0
     },
     "capabilities": [
         "configurable"
@@ -12,6 +11,11 @@
     "resources": {
         "media": [
             {
+                "file": "images/index.png",
+                "name": "SCREENSHOT",
+                "type": "png-trans"
+            },
+            {
                 "file": "images/2-fac-logo.png",
                 "name": "ICON",
                 "type": "png-trans"
@@ -21,12 +25,10 @@
     "sdkVersion": "3",
     "shortName": "pebble-2fac",
     "targetPlatforms": [
-        "aplite",
         "basalt"
     ],
     "uuid": "47531792-a579-46f2-9337-8cbb2ca69103",
-    "versionCode": 1,
-    "versionLabel": "0.3",
+    "versionLabel": "0.4",
     "watchapp": {
         "watchface": false
     }

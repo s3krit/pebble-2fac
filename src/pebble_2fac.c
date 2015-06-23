@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "base32.h"
 #include "gen_code.h"
     
-#define SECRET_LEN 17
+#define SECRET_LEN 33
     
 // Prototypes
 static void update_code();
@@ -31,12 +31,10 @@ static void update_code();
 // Configuration items
 enum {
     CONFIG_SECRET = 0x0,
-    CONFIG_TIMEZONE_OFFSET = 0x1
 };
 
 // Globals
 char* secret;
-int timezone_offset = 20;
 static Window *window;
 static TextLayer *text_layer;
 
@@ -45,10 +43,13 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 static void update_code(){
+    secret = "fakefakefakefakefake";
     const uint8_t* base32 = (uint8_t*)secret;
     char* out = (char*)malloc(sizeof(char)*7);
-    get_code(base32,16,(int)time(NULL)+timezone_offset,out);
-    app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Offset: %d",timezone_offset);
+    time_t t = time(NULL);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "time(): %d", (int)t);
+    //APP_LOG(APP_LOG_LEVEL_DEBUG, "gmtime(): %d", (int)gmtime(&t));
+    get_code(base32,32,(int)time(NULL),out);
     text_layer_set_text(text_layer, out);
     free(out);
 }
@@ -74,15 +75,9 @@ static void window_unload(Window *window) {
 void in_received_handler(DictionaryIterator *received, void *context) {
   // incoming message received
     Tuple *secret_tuple = dict_find(received, CONFIG_SECRET);
-    Tuple *offset_tuple = dict_find(received, CONFIG_TIMEZONE_OFFSET);
     if (secret_tuple){
         secret = secret_tuple->value->cstring;
         persist_write_string(CONFIG_SECRET, secret);
-    }
-    if (offset_tuple){
-        timezone_offset = offset_tuple->value->int32;
-        app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Got new offset: %d",(int)offset_tuple->value->int32);
-        persist_write_int(CONFIG_TIMEZONE_OFFSET, timezone_offset);
     }
 }
 
@@ -114,7 +109,7 @@ int main(void) {
     const uint32_t inbound_size = 64;
     const uint32_t outbound_size = 64;
     app_message_open(inbound_size, outbound_size);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
+    //APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
     app_event_loop();
     deinit();
 }

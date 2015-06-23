@@ -47,7 +47,7 @@ char* get_code(const uint8_t* code, int key_len,unsigned int cur_time,char* out)
         counter = counter >> 8;
     }
      
-    app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Time div 30: %x%x%x%x%x%x%x%x",octets[0],octets[1],octets[2],octets[3],octets[4],octets[5],octets[6],octets[7]);
+    //app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Time div 30: %x%x%x%x%x%x%x%x",octets[0],octets[1],octets[2],octets[3],octets[4],octets[5],octets[6],octets[7]);
     // perform hmac_sha1
     uint8_t* digest = (uint8_t*)malloc(sizeof(uint8_t)*64);
     if (hmac_sha1(code_raw,code_raw_len,octets,8,digest) != 0){
@@ -59,7 +59,7 @@ char* get_code(const uint8_t* code, int key_len,unsigned int cur_time,char* out)
     }
     free(code_raw);
     free(octets);
-    app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Digest: %x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x",digest[0],digest[1],digest[2],digest[3],digest[4],digest[5],digest[6],digest[7],digest[8],digest[9],digest[10],digest[11],digest[12],digest[13],digest[14],digest[15],digest[16],digest[17],digest[18],digest[19]);
+    //app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Digest: %x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x",digest[0],digest[1],digest[2],digest[3],digest[4],digest[5],digest[6],digest[7],digest[8],digest[9],digest[10],digest[11],digest[12],digest[13],digest[14],digest[15],digest[16],digest[17],digest[18],digest[19]);
     // convert to output format
     int offset = digest[19] & 0xf;
     long int bin_code = (digest[offset] & 0x7f) << 24
@@ -67,7 +67,7 @@ char* get_code(const uint8_t* code, int key_len,unsigned int cur_time,char* out)
             |(digest[offset+2] & 0xff) << 8
             |(digest[offset+3] & 0xff);
       
-    app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Out: %lu\n",bin_code);
+    //app_log(APP_LOG_LEVEL_DEBUG, "gen_code.c",123,"Out: %lu\n",bin_code);
     char* long_code = (char*)malloc(sizeof(char)*11);
     snprintf(long_code,16,"%lu",bin_code);
     
